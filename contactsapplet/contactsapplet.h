@@ -4,8 +4,8 @@
 // We need the Plasma Applet headers
 #include <KIcon>
 
-#include <Plasma/Applet>
 #include <Plasma/DataEngine>
+#include <Plasma/PopupApplet>
 #include <Plasma/TreeView>
 
 class QSizeF;
@@ -25,7 +25,7 @@ namespace KTelepathy
 }
 
 // Define our plasma Applet
-class contactsapplet : public Plasma::Applet
+class contactsapplet : public Plasma::PopupApplet
 {
     Q_OBJECT
     

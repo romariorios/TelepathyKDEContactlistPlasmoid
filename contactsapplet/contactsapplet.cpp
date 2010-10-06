@@ -15,7 +15,7 @@
 #include <KTelepathy/ContactsListModel>
 
 contactsapplet::contactsapplet(QObject *parent, const QVariantList &args)
-    : Plasma::Applet(parent, args),
+    : Plasma::PopupApplet(parent, args),
       m_contactsCount(0),
       m_layout(0),
       m_engine(0),
@@ -24,8 +24,6 @@ contactsapplet::contactsapplet(QObject *parent, const QVariantList &args)
     setBackgroundHints(DefaultBackground);
     setHasConfigurationInterface(true);
     setAspectRatioMode(Plasma::IgnoreAspectRatio);
-    
-    resize(300, 600);
 }
 
 
@@ -42,6 +40,8 @@ void contactsapplet::init()
 {
     m_engine = dataEngine("contacts");
     m_engine->connectSource("count", this, 1000);
+    QSizeF appletMinimumSize(100, 100);
+    sizeHint(Qt::MinimumSize, appletMinimumSize);
 }
 
 QGraphicsWidget* contactsapplet::graphicsWidget()
