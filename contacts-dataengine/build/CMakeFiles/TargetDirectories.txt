@@ -1,3 +1,0 @@
-/home/kde4/kdesvn/contacts-dataengine/build/CMakeFiles/plasma_engine_contacts.dir
-/home/kde4/kdesvn/contacts-dataengine/build/CMakeFiles/plasma_engine_contacts_automoc.dir
-/home/kde4/kdesvn/contacts-dataengine/build/CMakeFiles/uninstall.dir

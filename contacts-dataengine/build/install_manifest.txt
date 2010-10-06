@@ -1,2 +1,0 @@
-/home/kde4/kde/lib/kde4/plasma_engine_contacts.so
-/home/kde4/kde/share/kde4/services/plasma-engine-contacts.desktop

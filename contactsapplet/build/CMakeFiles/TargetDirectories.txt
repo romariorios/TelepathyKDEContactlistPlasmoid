@@ -1,3 +1,0 @@
-/home/kde4/kdesvn/contactsapplet/build/CMakeFiles/plasma_applet_contactsapplet.dir
-/home/kde4/kdesvn/contactsapplet/build/CMakeFiles/plasma_applet_contactsapplet_automoc.dir
-/home/kde4/kdesvn/contactsapplet/build/CMakeFiles/uninstall.dir
