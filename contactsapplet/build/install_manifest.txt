@@ -1,0 +1,2 @@
+/home/kde4/kde/lib/kde4/plasma_applet_contactsapplet.so
+/home/kde4/kde/share/kde4/services/plasma-applet-contactsapplet.desktop
