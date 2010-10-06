@@ -2,6 +2,8 @@
 
 #include <KTelepathy/ContactsListModel>
 
+#include <QDebug>
+
 ContactsEngine::ContactsEngine(QObject* parent, const QVariantList& args): DataEngine(parent, args)
 {
     Q_UNUSED(args);
@@ -26,11 +28,13 @@ bool ContactsEngine::sourceRequestEvent(const QString& name)
 }
 bool ContactsEngine::updateSourceEvent(const QString& source)
 {
-    if (source.toInt() == 0 and source != "0") {
-        return false;
-    }
     if (source == "count") {
         setData(source, "Contact count", m_model->rowCount());
+        qDebug() << m_model->rowCount();
+        return true;
+    }
+    if (source.toInt() == 0 and source != "0") {
+        return false;
     }
     QModelIndex mi = m_model->index(source.toInt(), 0);
     setData(source, "Identifier", mi.data());
