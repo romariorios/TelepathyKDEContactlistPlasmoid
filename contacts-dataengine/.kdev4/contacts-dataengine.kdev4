@@ -1,0 +1,31 @@
+[Buildset]
+BuildItems=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x01\x00\x00\x00\x0b\x00\x00\x00\x00\x01\x00\x00\x00&\x00c\x00o\x00n\x00t\x00a\x00c\x00t\x00s\x00-\x00d\x00a\x00t\x00a\x00e\x00n\x00g\x00i\x00n\x00e)
+
+[CMake]
+BuildDirs=/home/kde4/kdesvn/contacts-dataengine/build
+CMakeDir=/usr/share/cmake-2.8/Modules
+Current CMake Binary=file:///usr/bin/cmake
+CurrentBuildDir=file:///home/kde4/kdesvn/contacts-dataengine/build
+CurrentBuildType=Debug
+CurrentInstallDir=
+ProjectRootRelative=./
+
+[Launch]
+Launch Configurations=Launch Configuration 0
+
+[Launch][Launch Configuration 0]
+Configured Launch Modes=execute
+Configured Launchers=nativeAppLauncher
+Name=Test engine
+Type=Native Application
+
+[Launch][Launch Configuration 0][Data]
+Arguments=
+Dependencies=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x00)
+Dependency Action=Nothing
+EnvironmentGroup=default
+Executable=file:///home/kde4/kde/bin/plasmaengineexplorer
+External Terminal=konsole --noclose --workdir %workdir -e %exe
+Use External Terminal=false
+Working Directory=
+isExecutable=true

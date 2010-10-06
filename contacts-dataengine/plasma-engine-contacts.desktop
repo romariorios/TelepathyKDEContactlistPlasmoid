@@ -1,0 +1,17 @@
+[Desktop Entry]
+Name=Contacts Engine
+Comment=Engine for Telepathy-Qt4 contacts
+Type=Service
+ 
+X-KDE-ServiceTypes=Plasma/DataEngine
+X-KDE-Library=plasma_engine_contacts
+X-Plasma-EngineName=contacts
+X-KDE-PluginInfo-Author=Luiz Romário Santana Rios
+X-KDE-PluginInfo-Email=luizromario@gmail.com
+X-KDE-PluginInfo-Name=contacts
+X-KDE-PluginInfo-Version=0.0
+X-KDE-PluginInfo-Website=http://community.kde.org/Telepathy
+X-KDE-PluginInfo-Category=Network
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=LGPL
+X-KDE-PluginInfo-EnabledByDefault=true
