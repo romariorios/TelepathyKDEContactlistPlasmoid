@@ -24,18 +24,19 @@
 
 ContactsWidget::ContactsWidget(QGraphicsWidget* parent) :
         Plasma::Frame(parent),
-        m_identifier(new Plasma::Label),
-        m_talk(new Plasma::ToolButton)
+        m_identifier(new Plasma::Label(this)),
+        m_talk(new Plasma::ToolButton(this))
 {
     m_talk->setText(i18n("Talk"));
     
     QGraphicsAnchorLayout *layout = new QGraphicsAnchorLayout(this);
     layout->setSpacing(5);
-    layout->addAnchor(m_identifier, Qt::AnchorBottom, m_talk, Qt::AnchorTop);
+    layout->addCornerAnchors(layout, Qt::TopLeftCorner, m_identifier, Qt::TopLeftCorner);
+    layout->addCornerAnchors(layout, Qt::BottomRightCorner, m_talk, Qt::BottomRightCorner);
+    
+    setMinimumHeight(m_identifier->minimumHeight() + m_talk->minimumHeight() + 15);
 }
 void ContactsWidget::setData(const Plasma::DataEngine::Data& data)
 {
     m_identifier->setText(data["Identifier"].toString());
 }
-
-
