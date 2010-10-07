@@ -48,15 +48,21 @@ bool ContactsEngine::updateSourceEvent(const QString& source)
 {
     if (source == "count") {
         setData(source, "Contact count", m_model->rowCount());
-        qDebug() << m_model->rowCount();
         return true;
     }
     if (source.toInt() == 0 and source != "0") {
         return false;
     }
-    QModelIndex mi = m_model->index(source.toInt(), 0);
-    setData(source, "Identifier", mi.data());
-    setData(source, "Status icon", mi.data(Qt::DecorationRole));
+    QModelIndex personModelIndex = m_model->index(source.toInt(), 0);
+    setData(source, "Identifier", personModelIndex.data());
+    setData(source, "Status icon", personModelIndex.data(Qt::DecorationRole));
+    
+    int contactsCount = m_model->rowCount(personModelIndex);
+    QStringList contactsList;
+    for(int i = 0; i < contactsCount; ++i) {
+        contactsList << personModelIndex.child(i, 0).data().toString();
+    }
+    setData(source, "Contacts", contactsList);
     
     return true;
 }
