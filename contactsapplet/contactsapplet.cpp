@@ -1,7 +1,26 @@
+/*
+    KTelepathy List of Contacts.
+    Copyright (C) 2010  Luiz Romário Santana Rios
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*/
 #include "contactsapplet.h"
 
+#include "contactswidget.h"
+
 #include <QtCore/QSizeF>
-#include <QtGui/QFontMetrics>
 #include <QtGui/QGraphicsLinearLayout>
 #include <QtGui/QGraphicsWidget>
 #include <QtGui/QPainter>
@@ -71,14 +90,14 @@ void contactsapplet::dataUpdated(const QString& sourceName, const Plasma::DataEn
 {
     if (sourceName == "count" && m_contactsCount != data["Contact count"].toInt()) {
         m_contactsCount = data["Contact count"].toInt();
+        QString num;
         for (int i = 0; i < data["Contact count"].toInt(); ++i) {
-            QString num;
             num.setNum(i);
             Plasma::DataEngine::Data contact = m_engine->query(num);
-            Plasma::Label *contactLabel = new Plasma::Label;
-            contactLabel->setText(contact["Identifier"].toString());
+            ContactsWidget *contactWidget = new ContactsWidget(m_scrollWidget);
+            contactWidget->setData(contact);
             
-            m_layout->addItem(contactLabel);
+            m_layout->addItem(contactWidget);
         }
     }
 }

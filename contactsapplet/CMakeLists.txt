@@ -28,6 +28,7 @@ ${KTELEPATHY_INCLUDE_DIRS}
  
 # We add our source code here
 set(contactsapplet_SRCS
+contactswidget.cpp
 contactsapplet.cpp
 )
  
