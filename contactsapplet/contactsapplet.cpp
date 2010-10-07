@@ -30,7 +30,9 @@
 #include <Plasma/ScrollWidget>
 #include <Plasma/Theme>
 
+#include <KIconLoader>
 #include <KTelepathy/ContactsListModel>
+#include <QtGui/QPixmap>
 
 contactsapplet::contactsapplet(QObject *parent, const QVariantList &args)
     : Plasma::PopupApplet(parent, args),
@@ -43,7 +45,9 @@ contactsapplet::contactsapplet(QObject *parent, const QVariantList &args)
     setBackgroundHints(DefaultBackground);
     setHasConfigurationInterface(false);
     setAspectRatioMode(Plasma::IgnoreAspectRatio);
-    setPopupIcon("telepathy");
+    QPixmap icon(32, 32);
+    icon = KIconLoader::global()->loadIcon("telepathy", KIconLoader::Panel, 32);
+    setPopupIcon(icon);
 }
 
 
