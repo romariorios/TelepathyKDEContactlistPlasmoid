@@ -1,7 +1,6 @@
 #include "contactsapplet.h"
 
 #include <QtCore/QSizeF>
-#include <QtCore/QMutex>
 #include <QtGui/QFontMetrics>
 #include <QtGui/QGraphicsLinearLayout>
 #include <QtGui/QGraphicsWidget>
@@ -19,7 +18,8 @@ contactsapplet::contactsapplet(QObject *parent, const QVariantList &args)
       m_contactsCount(0),
       m_layout(0),
       m_engine(0),
-      m_contactsWidget(0)
+      m_contactsWidget(0),
+      m_scrollWidget(0)
 {
     setBackgroundHints(DefaultBackground);
     setHasConfigurationInterface(true);
@@ -39,32 +39,38 @@ contactsapplet::~contactsapplet()
 void contactsapplet::init()
 {
     m_engine = dataEngine("contacts");
-    m_engine->connectSource("count", this, 1000);
+    m_engine->connectSource("count", this, 5000);
     QSizeF appletMinimumSize(100, 100);
     sizeHint(Qt::MinimumSize, appletMinimumSize);
 }
 
 QGraphicsWidget* contactsapplet::graphicsWidget()
 {
-    if (m_contactsWidget) {
-        return m_contactsWidget;
+    if (m_scrollWidget) {
+        return m_scrollWidget;
     }
     
-    m_contactsWidget = new Plasma::ScrollWidget(this);
+    m_scrollWidget = new Plasma::ScrollWidget(this);
+    
+    m_contactsWidget = new Plasma::ScrollWidget(m_scrollWidget);
     m_layout = new QGraphicsLinearLayout(Qt::Vertical, m_contactsWidget);
     m_contactsWidget->setLayout(m_layout);
+    m_scrollWidget->setWidget(m_contactsWidget);
     
     Plasma::Label *contactsListLabel = new Plasma::Label;
     contactsListLabel->setText("Contacts List");
     m_layout->addItem(contactsListLabel);
     
-    return m_contactsWidget;
+    QSizeF listMinimumSize(200, 300);
+    m_scrollWidget->setMinimumSize(listMinimumSize);
+    
+    return m_scrollWidget;
 }
 
 void contactsapplet::dataUpdated(const QString& sourceName, const Plasma::DataEngine::Data& data)
 {
-    if (sourceName == "count") {
-        m_dataUpdatedMutex->lock();
+    if (sourceName == "count" && m_contactsCount != data["Contact count"].toInt()) {
+        m_contactsCount = data["Contact count"].toInt();
         for (int i = 0; i < data["Contact count"].toInt(); ++i) {
             QString num;
             num.setNum(i);
@@ -74,7 +80,6 @@ void contactsapplet::dataUpdated(const QString& sourceName, const Plasma::DataEn
             
             m_layout->addItem(contactLabel);
         }
-        m_dataUpdatedMutex->unlock();
     }
 }
 

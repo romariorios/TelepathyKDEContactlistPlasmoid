@@ -33,7 +33,8 @@ class contactsapplet : public Plasma::PopupApplet
     QGraphicsLinearLayout *m_layout;
     QMutex *m_dataUpdatedMutex;
     Plasma::DataEngine *m_engine;
-    Plasma::ScrollWidget *m_contactsWidget;
+    QGraphicsWidget *m_contactsWidget;
+    Plasma::ScrollWidget *m_scrollWidget;
     
 public:
     // Basic Create/Destroy
