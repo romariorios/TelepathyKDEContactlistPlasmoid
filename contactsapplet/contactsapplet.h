@@ -22,13 +22,11 @@
 
 #include <Plasma/DataEngine>
 #include <Plasma/PopupApplet>
-#include <Plasma/TreeView>
 
 class QSizeF;
 
 class QGraphicsLinearLayout;
 class QGraphicsWidget;
-class QMutex;
 
 namespace Plasma
 {
@@ -47,7 +45,6 @@ class contactsapplet : public Plasma::PopupApplet
     
     int m_contactsCount;
     QGraphicsLinearLayout *m_layout;
-    QMutex *m_dataUpdatedMutex;
     Plasma::DataEngine *m_engine;
     QGraphicsWidget *m_contactsWidget;
     Plasma::ScrollWidget *m_scrollWidget;

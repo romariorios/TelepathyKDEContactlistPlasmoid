@@ -41,8 +41,9 @@ contactsapplet::contactsapplet(QObject *parent, const QVariantList &args)
       m_scrollWidget(0)
 {
     setBackgroundHints(DefaultBackground);
-    setHasConfigurationInterface(true);
+    setHasConfigurationInterface(false);
     setAspectRatioMode(Plasma::IgnoreAspectRatio);
+    setPopupIcon("telepathy");
 }
 
 
@@ -59,8 +60,10 @@ void contactsapplet::init()
 {
     m_engine = dataEngine("contacts");
     m_engine->connectSource("count", this, 5000);
-    QSizeF appletMinimumSize(100, 100);
-    sizeHint(Qt::MinimumSize, appletMinimumSize);
+    QSizeF appletMinimumSize(200, 300);
+    setMinimumSize(appletMinimumSize);
+    
+    resize(300, 550);
 }
 
 QGraphicsWidget* contactsapplet::graphicsWidget()
