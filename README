@@ -1,3 +1,5 @@
-Here I'm just trying to implement a contact list plasma applet for Real-Time Communication and Collaboration.
+Plasma applet for Real-Time Communication and Collaboration.
 
-Enjoy. Or, even better, help!
+Requires latest everything from KDE and Telepathy. Also, requires libktelepathy, which lays in /trunk/playground/network.
+
+Enjoy!
