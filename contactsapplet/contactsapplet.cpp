@@ -76,7 +76,7 @@ QGraphicsWidget* contactsapplet::graphicsWidget()
         return m_scrollWidget;
     }
     
-    m_scrollWidget = new Plasma::ScrollWidget(this);
+    m_scrollWidget = new Plasma::ScrollWidget;
     
     m_contactsWidget = new Plasma::ScrollWidget(m_scrollWidget);
     m_layout = new QGraphicsLinearLayout(Qt::Vertical, m_contactsWidget);

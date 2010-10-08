@@ -5,7 +5,10 @@ FIXME (ordered by prority):
  - Does not scroll.
  - Whenever and wherever the list is clicked, it scrolls back to the top.
  - Tiny, annoying little scrollbars in the top of the list.
- - Threadfy list initialization.
 
 TODO (ordered by priority):
- - Mockup.
+ - Make "Talk" button talk.
+ - If a person has more than one account, show all of their accounts.
+ - Show avatar.
+ - Show presence icon.
+ - Threadfy list initialization.
