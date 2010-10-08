@@ -18,26 +18,22 @@
 */
 #include "contactsengine.h"
 
-#include <KTelepathy/ContactsListModel>
+#include <KTelepathy/Contact>
+#include <KTelepathy/Person>
 
-#include <QDebug>
+#include <KIcon>
 
 ContactsEngine::ContactsEngine(QObject* parent, const QVariantList& args): DataEngine(parent, args)
 {
     Q_UNUSED(args);
     setMinimumPollingInterval(500);
-    m_model = new KTelepathy::ContactsListModel;
+    m_personSet = KTelepathy::PeopleManager::instance()->everyone();
 }
 ContactsEngine::~ContactsEngine()
 {
-    delete m_model;
 }
 void ContactsEngine::init()
 {
-    for (int i = 0; i < m_model->rowCount(); ++i) {
-        QString s;
-        updateSourceEvent(s.setNum(i));
-    }
 }
 
 bool ContactsEngine::sourceRequestEvent(const QString& name)
@@ -47,20 +43,23 @@ bool ContactsEngine::sourceRequestEvent(const QString& name)
 bool ContactsEngine::updateSourceEvent(const QString& source)
 {
     if (source == "count") {
-        setData(source, "Contact count", m_model->rowCount());
+        setData(source, "Contact count", m_personSet->people().count());
         return true;
     }
     if (source.toInt() == 0 and source != "0") {
         return false;
     }
-    QModelIndex personModelIndex = m_model->index(source.toInt(), 0);
-    setData(source, "Identifier", personModelIndex.data());
-    setData(source, "Status icon", personModelIndex.data(Qt::DecorationRole));
     
-    int contactsCount = m_model->rowCount(personModelIndex);
+    KTelepathy::Person *person = m_personSet->people().toList()[source.toInt()].data();
+    setData(source, "Identifier", person->displayName());
+    setData(source, "Status message", person->presenceMessage());
+    setData(source, "Status icon", person->presenceIcon().pixmap(QSize(10, 10)));
+    setData(source, "Avatar", person->avatar());
+    
     QStringList contactsList;
-    for(int i = 0; i < contactsCount; ++i) {
-        contactsList << personModelIndex.child(i, 0).data().toString();
+    foreach(KTelepathy::ContactPtr contact, person->contacts())
+    {
+        contactsList << contact->displayName();
     }
     setData(source, "Contacts", contactsList);
     

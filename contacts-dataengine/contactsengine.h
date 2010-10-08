@@ -21,16 +21,13 @@
 
 #include <Plasma/DataEngine>
 
-namespace KTelepathy
-{
-    class ContactsListModel;
-}
+#include <KTelepathy/PeopleManager>
 
 class ContactsEngine:public Plasma::DataEngine
 {
     Q_OBJECT
     
-    KTelepathy::ContactsListModel *m_model;
+    KTelepathy::PersonSetPtr m_personSet;
 public:
     ContactsEngine(QObject *parent, const QVariantList &args);
     ~ContactsEngine();
