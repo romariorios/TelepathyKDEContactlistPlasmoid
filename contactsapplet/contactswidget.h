@@ -26,6 +26,7 @@
 
 namespace Plasma
 {
+    class IconWidget;
     class Label;
     class ToolButton;
 }
@@ -34,12 +35,16 @@ class ContactsWidget : public Plasma::Frame
 {
     Q_OBJECT
     
+    Plasma::IconWidget *m_avatar;
     Plasma::Label *m_identifier;
     Plasma::ToolButton *m_talk;
     
 public:
     ContactsWidget(QGraphicsWidget* parent);
     void setData(const Plasma::DataEngine::Data& data);
+    
+public slots:
+    void dataUpdated(const QString &sourceName, const Plasma::DataEngine::Data &data);
 };
 
 #endif // CONTACTSWIDGET_H

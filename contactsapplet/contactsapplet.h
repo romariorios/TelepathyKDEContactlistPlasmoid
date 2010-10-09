@@ -22,6 +22,9 @@
 
 #include <Plasma/DataEngine>
 #include <Plasma/PopupApplet>
+#include <QtCore/QList>
+
+class ContactsWidget;
 
 class QSizeF;
 
@@ -45,6 +48,7 @@ class contactsapplet : public Plasma::PopupApplet
     
     int m_contactsCount;
     QGraphicsLinearLayout *m_layout;
+    QList<ContactsWidget*> *m_contactsWidgetList;
     Plasma::DataEngine *m_engine;
     QGraphicsWidget *m_contactsWidget;
     Plasma::ScrollWidget *m_scrollWidget;

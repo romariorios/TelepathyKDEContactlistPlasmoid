@@ -24,23 +24,24 @@
 #include <QtGui/QGraphicsLinearLayout>
 #include <QtGui/QGraphicsWidget>
 #include <QtGui/QPainter>
+#include <QtGui/QPixmap>
 
 #include <Plasma/DataEngine>
 #include <Plasma/Label>
 #include <Plasma/ScrollWidget>
 #include <Plasma/Theme>
 
-#include <KIconLoader>
+#include <KDE/KIconLoader>
 #include <KTelepathy/ContactsListModel>
-#include <QtGui/QPixmap>
 
 contactsapplet::contactsapplet(QObject *parent, const QVariantList &args)
-    : Plasma::PopupApplet(parent, args),
-      m_contactsCount(0),
-      m_layout(0),
-      m_engine(0),
-      m_contactsWidget(0),
-      m_scrollWidget(0)
+        : Plasma::PopupApplet(parent, args),
+          m_contactsCount(0),
+          m_layout(0),
+          m_engine(0),
+          m_contactsWidget(0),
+          m_scrollWidget(0),
+          m_contactsWidgetList(new QList<ContactsWidget*>)
 {
     setBackgroundHints(DefaultBackground);
     setHasConfigurationInterface(false);
@@ -97,14 +98,22 @@ void contactsapplet::dataUpdated(const QString& sourceName, const Plasma::DataEn
 {
     if (sourceName == "count" && m_contactsCount != data["Contact count"].toInt()) {
         m_contactsCount = data["Contact count"].toInt();
+        while (m_layout->count() > 0) {
+            m_layout->removeAt(0);
+            delete m_contactsWidgetList->at(0);
+        }
+        delete m_contactsWidgetList;
+        m_contactsWidgetList = new QList<ContactsWidget*>;
         QString num;
         for (int i = 0; i < data["Contact count"].toInt(); ++i) {
             num.setNum(i);
             Plasma::DataEngine::Data contact = m_engine->query(num);
             ContactsWidget *contactWidget = new ContactsWidget(m_scrollWidget);
             contactWidget->setData(contact);
+            m_engine->connectSource(num, contactWidget, 3000);
             
             m_layout->addItem(contactWidget);
+            m_contactsWidgetList->append(contactWidget);
         }
     }
 }

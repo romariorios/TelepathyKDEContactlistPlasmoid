@@ -21,7 +21,9 @@
 #include <KTelepathy/Contact>
 #include <KTelepathy/Person>
 
-#include <KIcon>
+#include <KDE/KIcon>
+
+#include <QDebug>
 
 ContactsEngine::ContactsEngine(QObject* parent, const QVariantList& args): DataEngine(parent, args)
 {
@@ -46,7 +48,7 @@ bool ContactsEngine::updateSourceEvent(const QString& source)
         setData(source, "Contact count", m_personSet->people().count());
         return true;
     }
-    if (source.toInt() == 0 and source != "0") {
+    if (source.toInt() == 0 and source != "0" and source.toInt() >= m_personSet->people().count()) {
         return false;
     }
     
