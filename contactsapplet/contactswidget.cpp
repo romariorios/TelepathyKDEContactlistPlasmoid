@@ -18,12 +18,16 @@
 */
 #include "contactswidget.h"
 
+#include <Plasma/IconWidget>
 #include <Plasma/Label>
 #include <Plasma/ToolButton>
 #include <QtGui/QGraphicsAnchorLayout>
+#include <QtGui/QPainter>
+#include <QtGui/QPixmap>
 
 ContactsWidget::ContactsWidget(QGraphicsWidget* parent) :
         Plasma::Frame(parent),
+        m_avatar(new Plasma::IconWidget(this)),
         m_identifier(new Plasma::Label(this)),
         m_talk(new Plasma::ToolButton(this))
 {
@@ -31,7 +35,8 @@ ContactsWidget::ContactsWidget(QGraphicsWidget* parent) :
     
     QGraphicsAnchorLayout *layout = new QGraphicsAnchorLayout(this);
     layout->setSpacing(5);
-    layout->addCornerAnchors(layout, Qt::TopLeftCorner, m_identifier, Qt::TopLeftCorner);
+    layout->addCornerAnchors(layout, Qt::TopLeftCorner, m_avatar, Qt::TopLeftCorner);
+    layout->addCornerAnchors(m_avatar, Qt::TopRightCorner, m_identifier, Qt::TopLeftCorner);
     layout->addCornerAnchors(layout, Qt::BottomRightCorner, m_talk, Qt::BottomRightCorner);
     
     setMinimumHeight(m_identifier->minimumHeight() + m_talk->minimumHeight() + 15);
@@ -39,4 +44,13 @@ ContactsWidget::ContactsWidget(QGraphicsWidget* parent) :
 void ContactsWidget::setData(const Plasma::DataEngine::Data& data)
 {
     m_identifier->setText(data["Identifier"].toString());
+    QPixmap *avatar = reinterpret_cast<QPixmap*>(const_cast<void*>(data["Avatar"].data()));
+    m_avatar->setIcon(*avatar);
+}
+
+void ContactsWidget::dataUpdated(const QString& sourceName, const Plasma::DataEngine::Data& data)
+{
+    if (not (sourceName.toInt() == 0 and sourceName != "0" and sourceName.toInt() >= data["Contact count"].toInt())) {
+        setData(data);
+    }
 }

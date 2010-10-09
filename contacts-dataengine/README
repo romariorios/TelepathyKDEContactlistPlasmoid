@@ -1,13 +1,9 @@
 The Telepathy contact (person) list data engine.
 
 FIXME (ordered by priority):
- - A lot of display names are not being displayed on the applet, but
-only in plasmaengineexplorer.
+   (Nothing to fix yet).
 
 TODO (ordered by priority):
- - Defining whether setting a source for each contact and another for
+ - Define whether setting a source for each contact and another for
 the amount of contacts is the best way to retrieve the people.
-
-DONE:
- - Use PersonSet instead of ContactListModel.
- - Set other data to each person (avatar, display name, etc.).
+ - Create a service for sending a message.
