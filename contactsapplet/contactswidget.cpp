@@ -50,7 +50,7 @@ void ContactsWidget::setData(const Plasma::DataEngine::Data& data)
 
 void ContactsWidget::dataUpdated(const QString& sourceName, const Plasma::DataEngine::Data& data)
 {
-    if (not (sourceName.toInt() == 0 and sourceName != "0" and sourceName.toInt() >= data["Contact count"].toInt())) {
+    if (!(sourceName.toInt() == 0 && sourceName != "0" && sourceName.toInt() >= data["Contact count"].toInt())) {
         setData(data);
     }
 }

@@ -47,10 +47,10 @@ class contactsapplet : public Plasma::PopupApplet
     Q_OBJECT
     
     int m_contactsCount;
-    QGraphicsLinearLayout *m_layout;
+    QGraphicsLinearLayout *m_contactsLayout, *m_layout;
     QList<ContactsWidget*> *m_contactsWidgetList;
     Plasma::DataEngine *m_engine;
-    QGraphicsWidget *m_contactsWidget;
+    QGraphicsWidget *m_contactsWidget, *m_mainWidget;
     Plasma::ScrollWidget *m_scrollWidget;
     
 public:

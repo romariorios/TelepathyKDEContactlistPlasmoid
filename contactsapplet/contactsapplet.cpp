@@ -37,11 +37,13 @@
 contactsapplet::contactsapplet(QObject *parent, const QVariantList &args)
         : Plasma::PopupApplet(parent, args),
           m_contactsCount(0),
+          m_contactsLayout(0),
           m_layout(0),
+          m_contactsWidgetList(new QList<ContactsWidget*>),
           m_engine(0),
           m_contactsWidget(0),
-          m_scrollWidget(0),
-          m_contactsWidgetList(new QList<ContactsWidget*>)
+          m_mainWidget(0),
+          m_scrollWidget(0)
 {
     setBackgroundHints(DefaultBackground);
     setHasConfigurationInterface(false);
@@ -65,7 +67,7 @@ void contactsapplet::init()
 {
     m_engine = dataEngine("contacts");
     m_engine->connectSource("count", this, 5000);
-    QSizeF appletMinimumSize(200, 300);
+    QSizeF appletMinimumSize(200, 200);
     setMinimumSize(appletMinimumSize);
     
     resize(300, 550);
@@ -73,33 +75,35 @@ void contactsapplet::init()
 
 QGraphicsWidget* contactsapplet::graphicsWidget()
 {
-    if (m_scrollWidget) {
-        return m_scrollWidget;
+    if (m_mainWidget) {
+        return m_mainWidget;
     }
     
-    m_scrollWidget = new Plasma::ScrollWidget;
+    m_mainWidget = new QGraphicsWidget(this);
+    m_layout = new QGraphicsLinearLayout(Qt::Vertical, m_mainWidget);
+    m_mainWidget->setLayout(m_layout);
     
-    m_contactsWidget = new Plasma::ScrollWidget(m_scrollWidget);
-    m_layout = new QGraphicsLinearLayout(Qt::Vertical, m_contactsWidget);
-    m_contactsWidget->setLayout(m_layout);
+    m_scrollWidget = new Plasma::ScrollWidget(m_mainWidget);
+    m_contactsWidget = new QGraphicsWidget(m_scrollWidget);
+    m_contactsLayout = new QGraphicsLinearLayout(Qt::Vertical, m_contactsWidget);
+    m_contactsWidget->setLayout(m_contactsLayout);
     m_scrollWidget->setWidget(m_contactsWidget);
     
-    Plasma::Label *contactsListLabel = new Plasma::Label;
-    contactsListLabel->setText("Contacts List");
-    m_layout->addItem(contactsListLabel);
+    Plasma::Label *f = new Plasma::Label;
+    f->setText(i18n("People"));
+    m_layout->addItem(f);
     
-    QSizeF listMinimumSize(200, 300);
-    m_scrollWidget->setMinimumSize(listMinimumSize);
+    m_layout->addItem(m_scrollWidget);
     
-    return m_scrollWidget;
+    return m_mainWidget;
 }
 
 void contactsapplet::dataUpdated(const QString& sourceName, const Plasma::DataEngine::Data& data)
 {
     if (sourceName == "count" && m_contactsCount != data["Contact count"].toInt()) {
         m_contactsCount = data["Contact count"].toInt();
-        while (m_layout->count() > 0) {
-            m_layout->removeAt(0);
+        while (m_contactsLayout->count() > 0) {
+            m_contactsLayout->removeAt(0);
             delete m_contactsWidgetList->at(0);
         }
         delete m_contactsWidgetList;
@@ -112,7 +116,7 @@ void contactsapplet::dataUpdated(const QString& sourceName, const Plasma::DataEn
             contactWidget->setData(contact);
             m_engine->connectSource(num, contactWidget, 3000);
             
-            m_layout->addItem(contactWidget);
+            m_contactsLayout->addItem(contactWidget);
             m_contactsWidgetList->append(contactWidget);
         }
     }

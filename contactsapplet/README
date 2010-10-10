@@ -2,9 +2,6 @@ The Telepathy contact (person) list Plasma applet.
 
 FIXME (ordered by prority):
 ** DO NOT PUT IT IN A PANEL. If you do so, the icon occupy a huge space in it with blank. **
- - Does not scroll.
- - Whenever and wherever the list is clicked, it scrolls back to the top.
- - Tiny, annoying little scrollbars in the top of the list.
 
 TODO (ordered by priority):
  - Make "Talk" button talk.

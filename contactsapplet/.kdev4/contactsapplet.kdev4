@@ -2,14 +2,16 @@
 BuildItems=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x01\x00\x00\x00\x0b\x00\x00\x00\x00\x01\x00\x00\x00\x1c\x00c\x00o\x00n\x00t\x00a\x00c\x00t\x00s\x00a\x00p\x00p\x00l\x00e\x00t)
 
 [CMake]
-BuildDirs=/home/kde4/kdesvn/contactsapplet/build
+BuildDirs[$e]=$HOME/kdesvn/TelepathyKDEContactlistPlasmoid/contactsapplet/build
 CMakeDir=/usr/share/cmake-2.8/Modules
 Current CMake Binary=file:///usr/bin/cmake
-CurrentBuildDir=file:///home/kde4/kdesvn/contactsapplet/build
-CurrentBuildType=Debug
-CurrentInstallDir=
+CurrentBuildDir=file:///home/kde4/kdesvn/TelepathyKDEContactlistPlasmoid/contactsapplet/build
+CurrentInstallDir=file:///home/kde4/kde
 Extra Arguments=
 ProjectRootRelative=./
+
+[MakeBuilder]
+Number Of Jobs=1
 
 [Project]
 VersionControlSupport=kdevgit
