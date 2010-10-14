@@ -5,6 +5,6 @@ FIXME (ordered by prority):
 
 TODO (ordered by priority):
  - Make "Talk" button talk.
- - If a person has more than one account, show all of their accounts.
+ - If a person has more than one account, show all of their accounts. (In progress)
  - Show presence icon.
  - Threadfy list initialization.

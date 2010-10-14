@@ -24,6 +24,11 @@
 #include <Plasma/Frame>
 #include <Plasma/DataEngine>
 
+#include <QtCore/QList>
+#include <QtCore/QPointer>
+
+class QGraphicsAnchorLayout;
+class QGraphicsLinearLayout;
 namespace Plasma
 {
     class IconWidget;
@@ -37,6 +42,10 @@ class ContactsWidget : public Plasma::Frame
     
     Plasma::IconWidget *m_avatar;
     Plasma::Label *m_identifier;
+    QGraphicsAnchorLayout *m_layout;
+    Plasma::Frame *m_contactsFrame;
+    QGraphicsLinearLayout *m_contactsLayout;
+    QList<QPointer<Plasma::Label> > *m_contacts;
     Plasma::ToolButton *m_talk;
     
 public:
